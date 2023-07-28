@@ -1,0 +1,7 @@
+import 'package:equatable/equatable.dart';import 'package:flutter/material.dart';import '/core/app_export.dart';import '../models/likeintrstflds_item_model.dart';import 'package:mqd_v1/presentation/likes_interests_screen/models/likes_interests_model.dart';part 'likes_interests_event.dart';part 'likes_interests_state.dart';/// A bloc that manages the state of a LikesInterests according to the event that is dispatched to it.
+class LikesInterestsBloc extends Bloc<LikesInterestsEvent, LikesInterestsState> {LikesInterestsBloc(LikesInterestsState initialState) : super(initialState) { on<LikesInterestsInitialEvent>(_onInitialize); on<UpdateChipViewEvent>(_updateChipView); }
+
+_onInitialize(LikesInterestsInitialEvent event, Emitter<LikesInterestsState> emit, ) async  { emit(state.copyWith(likesInterestsModelObj: state.likesInterestsModelObj?.copyWith(likeintrstfldsItemList: fillLikeintrstfldsItemList()))); } 
+_updateChipView(UpdateChipViewEvent event, Emitter<LikesInterestsState> emit, ) { List<LikeintrstfldsItemModel> newList = List<LikeintrstfldsItemModel>.from(state.likesInterestsModelObj!.likeintrstfldsItemList); newList[event.index] = newList[event.index].copyWith(isSelected: event.isSelected); emit(state.copyWith(likesInterestsModelObj: state.likesInterestsModelObj?.copyWith(likeintrstfldsItemList: newList))); } 
+List<LikeintrstfldsItemModel> fillLikeintrstfldsItemList() { return List.generate(12, (index) => LikeintrstfldsItemModel()); } 
+ }
